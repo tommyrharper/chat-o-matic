@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   ApolloProvider,
   useQuery,
+  useMutation,
   gql,
 } from "@apollo/client";
 import { 
@@ -28,6 +29,11 @@ query {
   }
 }
 `;
+
+const POST_MESSAGE = gql`
+mutation ($user:String!, $content:String!) {
+  postMessage(user: $user, content: $content)
+}`;
 
 const Messages = ({ user }) => {
   const { data } = useQuery(GET_MESSAGES);
@@ -81,6 +87,19 @@ const Chat = () => {
     user: 'Jack',
     content: '',
   })
+  const [postMessage] = useMutation(POST_MESSAGE);
+
+  const onSend = () => {
+    if (state.content.length > 0) {
+      postMessage({
+        variables: state,
+      });
+    }
+    stateSet({
+      ...state,
+      content: "",
+    })
+  }
   return (
     <Container>
       <Messages user={state.user}/>
@@ -100,10 +119,21 @@ const Chat = () => {
             label="Content"
             value={state.content}
             onChange={(evt) => stateSet({
-              ...state,
-              content: evt.target.value,
-            })}
+                ...state,
+                content: evt.target.value,
+              })
+            }
+            onKeyUp={(evt) => {
+              if (evt.keyCode === 13) {
+                onSend();
+              }
+            }}
           />
+        </Col>
+        <Col>
+          <Button onClick={() => onSend()}>
+            Send
+          </Button>
         </Col>
       </Row>
     </Container>
