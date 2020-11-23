@@ -5,5 +5,5 @@
 ```
 cd server
 yarn init -y
-
+yarn add graphql-yoga
 ```
