@@ -14,6 +14,7 @@ yarn
 yarn start     ----> runs front-end
 yarn add shards-react
 yarn add @apollo/client graphql
+yarn add subscriptions-transport-ws
 ```
 
 - `degit` just does a git clone, then removes the git directory. Then you add the branch you want to copy after the `#` then after a space give the name yo uwant to give the directory.
