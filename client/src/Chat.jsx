@@ -8,6 +8,10 @@ import {
 } from "@apollo/client";
 import { 
   Container,
+  Row,
+  Col,
+  FormInput,
+  Button
 } from 'shards-react';
 
 const client = new ApolloClient({
@@ -73,9 +77,35 @@ const Messages = ({ user }) => {
 }
 
 const Chat = () => {
+  const [state, stateSet] = React.useState({
+    user: 'Jack',
+    content: '',
+  })
   return (
     <Container>
-      <Messages user="Mary"/>
+      <Messages user={state.user}/>
+      <Row>
+        <Col xs={2} style={{ padding: 0 }}>
+          <FormInput
+            label="User"
+            value={state.user}
+            onChange={(evt) => stateSet({
+              ...state,
+              user: evt.target.value,
+            })}
+          />
+        </Col>
+        <Col xs={8}>
+          <FormInput
+            label="Content"
+            value={state.content}
+            onChange={(evt) => stateSet({
+              ...state,
+              content: evt.target.value,
+            })}
+          />
+        </Col>
+      </Row>
     </Container>
   )
 }
