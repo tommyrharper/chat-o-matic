@@ -139,8 +139,8 @@ const Chat = () => {
             }}
           />
         </Col>
-        <Col>
-          <Button onClick={() => onSend()}>
+        <Col xs={2}  style={{ padding: 0 }}>
+          <Button onClick={() => onSend()} style={{ width: "100%"}}>
             Send
           </Button>
         </Col>
